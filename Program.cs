@@ -1,4 +1,6 @@
-﻿namespace dtp6_contacts
+﻿using System.Numerics;
+
+namespace dtp6_contacts
 {
     class MainClass
     {
@@ -145,5 +147,12 @@
                 }
             } while (commandLine[0] != "quit");
         }
+        // 1. Byt ut static-metoder som repeteras
+        // 2. Ta bort onödiga spårutskrifter
+        // 3. kommentera för att begripa koden, kommentera alla metoder (static dynamic)
+        // 4. Om hittar variabler som är svårbegripliga, döp till något begripligt
+        // 5. Ta bort funktionaliteterna i if-else-kedjan genom att göra dem till metoder, som det passar ändamålet
+        // 6. bygg smarta konstruktorer, setters och getters (kanske även properties) som det passar
+        //    ändamålet, men i synnerhet setters och getters för attributen phone och address
     }
 }
