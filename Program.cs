@@ -33,23 +33,7 @@ namespace dtp6_contacts
                             string line;
                             while ((line = infile.ReadLine()) != null)
                             {
-                                Console.WriteLine(line);
-                                string[] attrs = line.Split('|');
-                                Person p = new Person();
-                                p.persname = attrs[0];
-                                p.surname = attrs[1];
-                                string[] phones = attrs[2].Split(';');
-                                p.phone = phones[0];
-                                string[] addresses = attrs[3].Split(';');
-                                p.address = addresses[0];
-                                for (int ix = 0; ix < contactList.Length; ix++)
-                                {
-                                    if (contactList[ix] == null)
-                                    {
-                                        contactList[ix] = p;
-                                        break;
-                                    }
-                                }
+                                LoadListFromFile(line);
                             }
                         }
                     }
@@ -127,6 +111,27 @@ namespace dtp6_contacts
                     Console.WriteLine($"Unknown command: '{commandLine[0]}'");
                 }
             } while (commandLine[0] != "quit");
+        }
+
+        private static void LoadListFromFile(string line)
+        {
+            Console.WriteLine(line);
+            string[] attrs = line.Split('|');
+            Person p = new Person();
+            p.persname = attrs[0];
+            p.surname = attrs[1];
+            string[] phones = attrs[2].Split(';');
+            p.phone = phones[0];
+            string[] addresses = attrs[3].Split(';');
+            p.address = addresses[0];
+            for (int ix = 0; ix < contactList.Length; ix++)
+            {
+                if (contactList[ix] == null)
+                {
+                    contactList[ix] = p;
+                    break;
+                }
+            }
         }
 
         private static void PrintHelp()
