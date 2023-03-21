@@ -11,7 +11,7 @@ namespace dtp6_contacts
         }
         public static void Main(string[] args)
         {
-            string lastFileName = "address.lis";
+            string lastFileName = "address.lis.txt";
             string[] commandLine;
             PrintHelp();
             do
@@ -45,23 +45,7 @@ namespace dtp6_contacts
                             string line;
                             while ((line = infile.ReadLine()) != null)
                             {
-                                Console.WriteLine(line);
-                                string[] attrs = line.Split('|');
-                                Person p = new Person();
-                                p.persname = attrs[0];
-                                p.surname = attrs[1];
-                                string[] phones = attrs[2].Split(';');
-                                p.phone = phones[0];
-                                string[] addresses = attrs[3].Split(';');
-                                p.address = addresses[0];
-                                for (int ix = 0; ix < contactList.Length; ix++)
-                                {
-                                    if (contactList[ix] == null)
-                                    {
-                                        contactList[ix] = p;
-                                        break;
-                                    }
-                                }
+                                LoadListFromFile(line);
                             }
                         }
                     }
@@ -75,7 +59,7 @@ namespace dtp6_contacts
                             foreach (Person p in contactList)
                             {
                                 if (p != null)
-                                    outfile.WriteLine($"{p.persname};{p.surname};{p.phone};{p.address};{p.birthdate}");
+                                    outfile.WriteLine($"{p.persname}|{p.surname}|{p.phone}|{p.address}|{p.birthdate}");
                             }
                         }
                     }
@@ -113,22 +97,22 @@ namespace dtp6_contacts
             } while (commandLine[0] != "quit");
         }
 
-        private static void LoadListFromFile(string line)
+        private static void LoadListFromFile(string lineFromAddressFile)
         {
-            Console.WriteLine(line);
-            string[] attrs = line.Split('|');
-            Person p = new Person();
-            p.persname = attrs[0];
-            p.surname = attrs[1];
+            Console.WriteLine(lineFromAddressFile);
+            string[] attrs = lineFromAddressFile.Split('|');
+            Person newPerson = new Person();
+            newPerson.persname = attrs[0];
+            newPerson.surname = attrs[1];
             string[] phones = attrs[2].Split(';');
-            p.phone = phones[0];
+            newPerson.phone = phones[0];
             string[] addresses = attrs[3].Split(';');
-            p.address = addresses[0];
+            newPerson.address = addresses[0];
             for (int ix = 0; ix < contactList.Length; ix++)
             {
                 if (contactList[ix] == null)
                 {
-                    contactList[ix] = p;
+                    contactList[ix] = newPerson;
                     break;
                 }
             }
@@ -148,7 +132,7 @@ namespace dtp6_contacts
             Console.WriteLine("  save /file/ - save contact list data to the file");
             Console.WriteLine();
         }
-        // 1. Byt ut static-metoder som repeteras
+        // 1. Bryt ut static-metoder som repeteras
         // 2. Ta bort onödiga spårutskrifter
         // 3. kommentera för att begripa koden, kommentera alla metoder (static dynamic)
         // 4. Om hittar variabler som är svårbegripliga, döp till något begripligt
