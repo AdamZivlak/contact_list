@@ -11,7 +11,7 @@ namespace dtp6_contacts
         }
         public static void Main(string[] args)
         {
-            string lastFileName = "address.lis.txt";
+            string lastFileName = "address.lis";
             string[] commandLine;
             PrintHelp();
             do
@@ -27,15 +27,8 @@ namespace dtp6_contacts
                 {
                     if (commandLine.Length < 2)
                     {
-                        lastFileName = "address.lis.txt";
-                        using (StreamReader infile = new StreamReader(lastFileName))
-                        {
-                            string line;
-                            while ((line = infile.ReadLine()) != null)
-                            {
-                                LoadListFromFile(line);
-                            }
-                        }
+                        lastFileName = "address.lis";
+                        LoadContactListFromFile(lastFileName);
                     }
                     else
                     {
@@ -45,7 +38,7 @@ namespace dtp6_contacts
                             string line;
                             while ((line = infile.ReadLine()) != null)
                             {
-                                LoadListFromFile(line);
+                                LoadContact(line);
                             }
                         }
                     }
@@ -97,7 +90,19 @@ namespace dtp6_contacts
             } while (commandLine[0] != "quit");
         }
 
-        private static void LoadListFromFile(string lineFromAddressFile)
+        private static void LoadContactListFromFile(string lastFileName)
+        {
+            using (StreamReader infile = new StreamReader(lastFileName))
+            {
+                string line;
+                while ((line = infile.ReadLine()) != null)
+                {
+                    LoadContact(line);
+                }
+            }
+        }
+
+        private static void LoadContact(string lineFromAddressFile)
         {
             Console.WriteLine(lineFromAddressFile);
             string[] attrs = lineFromAddressFile.Split('|');
