@@ -13,16 +13,7 @@ namespace dtp6_contacts
         {
             string lastFileName = "address.lis";
             string[] commandLine;
-            Console.WriteLine("Hello and welcome to the contact list");
-            Console.WriteLine("Avaliable commands: ");
-            Console.WriteLine("  load        - load contact list data from the file address.lis");
-            Console.WriteLine("  load /file/ - load contact list data from the file");
-            Console.WriteLine("  new        - create new person");
-            Console.WriteLine("  new /persname/ /surname/ - create new person with personal name and surname");
-            Console.WriteLine("  quit        - quit the program");
-            Console.WriteLine("  save         - save contact list data to the file previously loaded");
-            Console.WriteLine("  save /file/ - save contact list data to the file");
-            Console.WriteLine();
+            PrintHelp();
             do
             {
                 Console.Write($"> ");
@@ -36,7 +27,7 @@ namespace dtp6_contacts
                 {
                     if (commandLine.Length < 2)
                     {
-                        lastFileName = "address.lis";
+                        lastFileName = "address.lis.txt";
                         using (StreamReader infile = new StreamReader(lastFileName))
                         {
                             string line;
@@ -129,23 +120,28 @@ namespace dtp6_contacts
                 }
                 else if (commandLine[0] == "help")
                 {
-                    Console.WriteLine("Avaliable commands: ");
-                    Console.WriteLine("  delete       - emtpy the contact list");
-                    Console.WriteLine("  delete /persname/ /surname/ - delete a person");
-                    Console.WriteLine("  load        - load contact list data from the file address.lis");
-                    Console.WriteLine("  load /file/ - load contact list data from the file");
-                    Console.WriteLine("  new        - create new person");
-                    Console.WriteLine("  new /persname/ /surname/ - create new person with personal name and surname");
-                    Console.WriteLine("  quit        - quit the program");
-                    Console.WriteLine("  save         - save contact list data to the file previously loaded");
-                    Console.WriteLine("  save /file/ - save contact list data to the file");
-                    Console.WriteLine();
+                    PrintHelp();
                 }
                 else
                 {
                     Console.WriteLine($"Unknown command: '{commandLine[0]}'");
                 }
             } while (commandLine[0] != "quit");
+        }
+
+        private static void PrintHelp()
+        {
+            Console.WriteLine("Avaliable commands: ");
+            Console.WriteLine("  delete       - emtpy the contact list");
+            Console.WriteLine("  delete /persname/ /surname/ - delete a person");
+            Console.WriteLine("  load        - load contact list data from the file address.lis");
+            Console.WriteLine("  load /file/ - load contact list data from the file");
+            Console.WriteLine("  new        - create new person");
+            Console.WriteLine("  new /persname/ /surname/ - create new person with personal name and surname");
+            Console.WriteLine("  quit        - quit the program");
+            Console.WriteLine("  save         - save contact list data to the file previously loaded");
+            Console.WriteLine("  save /file/ - save contact list data to the file");
+            Console.WriteLine();
         }
         // 1. Byt ut static-metoder som repeteras
         // 2. Ta bort onödiga spårutskrifter
