@@ -33,14 +33,7 @@ namespace dtp6_contacts
                     else
                     {
                         lastFileName = commandLine[1];
-                        using (StreamReader infile = new StreamReader(lastFileName))
-                        {
-                            string line;
-                            while ((line = infile.ReadLine()) != null)
-                            {
-                                LoadContact(line);
-                            }
-                        }
+                        LoadContactListFromFile(lastFileName);
                     }
                 }
                 else if (commandLine[0] == "save")
