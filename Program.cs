@@ -8,6 +8,10 @@ namespace dtp6_contacts
         class Person
         {
             public string persname, surname, phone, address, birthdate;
+            public void Print()
+            {
+                Console.WriteLine($"{persname}, {surname}, {phone}, {address}, {birthdate}");
+            }
         }
         public static void Main(string[] args)
         {
@@ -20,8 +24,15 @@ namespace dtp6_contacts
                 commandLine = Console.ReadLine().Split(' ');
                 if (commandLine[0] == "quit")
                 {
-                    // NYI!
-                    Console.WriteLine("Not yet implemented: safe quit");
+                    Console.WriteLine("Goodbye!");
+                    break;
+                }
+                else if (commandLine[0] == "list")
+                {
+                    foreach (Person p in contactList)
+                    {
+                        p.Print();
+                    }
                 }
                 else if (commandLine[0] == "load")
                 {
@@ -64,6 +75,7 @@ namespace dtp6_contacts
                 {
                     PrintHelp();
                 }
+                
                 else
                 {
                     Console.WriteLine($"Unknown command: '{commandLine[0]}'");
